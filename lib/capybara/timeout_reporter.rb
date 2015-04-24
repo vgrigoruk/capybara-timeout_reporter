@@ -8,10 +8,10 @@ module Capybara
 
     class << self
       attr_accessor :on_timeout
-    end
 
-    def self.on_timeout=(proc)
-      @on_timeout = proc
+      def on_timeout=(proc)
+        @on_timeout = proc
+      end
     end
   end
 
@@ -22,7 +22,7 @@ module Capybara
         synchronize_without_warning(seconds, options, &block)
       rescue Capybara::ElementNotFound => e
         if Time.now-start_time > seconds
-          trace_line = Thread.current.backtrace.find { |l| !l.include?('gems/capybara')}
+          trace_line = Thread.current.backtrace.find { |l| !l.include?('gems/capybara') }
           src_line = trace_line.match(/(.*):.*/).captures.first
           Capybara::TimeoutReporter.on_timeout.call(seconds, src_line)
         end
