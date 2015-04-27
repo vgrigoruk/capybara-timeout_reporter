@@ -2,16 +2,19 @@ require 'capybara'
 
 module Capybara
   class TimeoutReporter
-    @on_timeout = Proc.new do |seconds, src_line|
-      puts "[WARNING] Capybara find timed out after #{seconds} seconds in #{src_line}"
-    end
 
     class << self
-      attr_accessor :on_timeout
-
-      def on_timeout=(proc)
-        @on_timeout = proc
+      def on_timeout(&block)
+        @block = block
       end
+
+      def report(seconds, src_line)
+        @block.call(seconds, src_line)
+      end
+    end
+
+    on_timeout do |seconds, src_line|
+      puts "[WARNING] Capybara find timed out after #{seconds} seconds in #{src_line}"
     end
   end
 
@@ -24,7 +27,7 @@ module Capybara
         if Time.now-start_time > seconds
           trace_line = Thread.current.backtrace.find { |l| !l.include?('gems/capybara') }
           src_line = trace_line.match(/(.*):.*/).captures.first
-          Capybara::TimeoutReporter.on_timeout.call(seconds, src_line)
+          Capybara::TimeoutReporter.report(seconds, src_line)
         end
         raise e
       end

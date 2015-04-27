@@ -61,7 +61,7 @@ Default beviour, in case of Capybara sync timeout the following warning will be 
 
 ```
 # somewhere in your test_helper.rb, spec_helper.rb, evn.rb, etc.
-Capybara::TimeoutReporter.on_timeout = Proc.new do |timeout_value, src_line|
+Capybara::TimeoutReporter.on_timeout do |timeout_value, src_line|
   # do whatever you want, for example:
   # - raise an exception, if you want to make this strict 
   # - add an entry to test report, if you have one
