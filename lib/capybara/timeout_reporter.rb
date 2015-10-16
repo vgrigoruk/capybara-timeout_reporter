@@ -20,7 +20,7 @@ module Capybara
 
   module Node
     class Base
-      def synchronize_with_warning(seconds=Capybara.default_wait_time, options = {}, &block)
+      def synchronize_with_warning(seconds=Capybara.default_max_wait_time, options = {}, &block)
         start_time = Time.now
         synchronize_without_warning(seconds, options, &block)
       rescue Capybara::ElementNotFound => e
