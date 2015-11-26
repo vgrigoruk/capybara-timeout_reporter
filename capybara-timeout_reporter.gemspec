@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "capybara-timeout_reporter"
-  spec.version       = "0.1.0"
+  spec.version       = "0.2.0"
   spec.authors       = ["Vitalii Grygoruk"]
   spec.email         = ["vitaliy[dot]grigoruk[at]gmail[dot]com"]
   spec.summary       = %q{Detecting and reporting capybara sync timeouts}
