@@ -3,7 +3,7 @@ require 'capybara'
 module Capybara
   class TimeoutReporter
 
-    @exclude_patterns = [/capybara-timeout_reporter/, /gems\/capybara\//]
+    @exclude_patterns = [/capybara-timeout_reporter/, %r{gems/capybara}]
     @include_patterns = [/.*/]
 
     class << self
@@ -44,7 +44,7 @@ module Capybara
           end
           trace_line = backtrace.length > 0 ? backtrace[0] : nil
           src_line = trace_line ? trace_line.match(/(.*):.*/).captures.first : "Can't find line that matches the pattern"
-          Capybara::TimeoutReporter.report(seconds, src_line) if src_line
+          Capybara::TimeoutReporter.report(seconds, src_line)
         end
         raise e
       end
