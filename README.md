@@ -36,7 +36,7 @@ gem install capybara-timeout_reporter
 or if you're using bundler, add this line to Gemfile:
 
 ```
-gem 'capybara-timeout_reporter
+gem 'capybara-timeout_reporter'
 ```
 
 # Usage
